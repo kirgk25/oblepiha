@@ -41,19 +41,6 @@ class Product extends Model
         'cost',
     ];
 
-    protected $attributes = [
-        'description' => '',
-    ];
-
-    protected $visible = [
-        'name',
-        'cost',
-    ];
-
-    protected $appends = [
-        'mainPhoto',
-    ];
-
     public function photos()
     {
         return $this->hasMany(Photo::class);

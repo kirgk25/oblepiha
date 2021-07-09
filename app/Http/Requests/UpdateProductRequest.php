@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Product;
 
 class UpdateProductRequest extends FormRequest
 {
@@ -24,10 +25,10 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string',
-            'description' => 'string',
-            'cost' => 'numeric',
-            'photos' => 'array',
+            'name' => 'required|string|max:' . Product::NAME_MAX_LENGTH,
+            'description' => 'string|max:' . Product::DESCRIPTION_MAX_LENGTH,
+            'cost' => 'required|numeric|min:0',
+            'photos' => 'required|array|max:3',
         ];
     }
 }

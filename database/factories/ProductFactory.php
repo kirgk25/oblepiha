@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory
@@ -12,7 +12,7 @@ class ProductFactory extends Factory
      *
      * @var string
      */
-    protected $model = Models\Product::class;
+    protected $model = Product::class;
 
     /**
      * Define the model's default state.
@@ -23,7 +23,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'description' => $this->faker->text(Models\Product::DESCRIPTION_MAX_LENGTH),
+            'description' => $this->faker->text(Product::DESCRIPTION_MAX_LENGTH),
             'cost' => $this->faker->randomFloat(8, 10, 1000),
         ];
     }

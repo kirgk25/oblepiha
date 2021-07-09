@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Product;
 
 class StoreProductRequest extends FormRequest
 {
@@ -25,8 +25,8 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:' . Models\Product::NAME_MAX_LENGTH,
-            'description' => 'string|max:' . Models\Product::DESCRIPTION_MAX_LENGTH,
+            'name' => 'required|string|max:' . Product::NAME_MAX_LENGTH,
+            'description' => 'string|max:' . Product::DESCRIPTION_MAX_LENGTH,
             'cost' => 'required|numeric|min:0',
             'photos' => 'required|array|max:3',
         ];

@@ -6,6 +6,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Http\Response;
 
 class Handler extends ExceptionHandler
 {
@@ -60,8 +61,8 @@ class Handler extends ExceptionHandler
                 'errors' => [
                     __('content.errors.not_found')
                 ],
-                'code' => HTTP_STATUS_CODE_NOT_FOUND,
-            ], HTTP_STATUS_CODE_NOT_FOUND);
+                'code' => Response::HTTP_NOT_FOUND,
+            ], Response::HTTP_NOT_FOUND);
         }
 
         return parent::render($request, $throwable);

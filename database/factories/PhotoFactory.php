@@ -2,7 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models;
+use App\Models\Photo;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PhotoFactory extends Factory
@@ -12,7 +13,7 @@ class PhotoFactory extends Factory
      *
      * @var string
      */
-    protected $model = Models\Photo::class;
+    protected $model = Photo::class;
 
     /**
      * Define the model's default state.
@@ -21,7 +22,7 @@ class PhotoFactory extends Factory
      */
     public function definition()
     {
-        $productIds = Models\Product::pluck('id');
+        $productIds = Product::pluck('id');
 
         return [
             'product_id' => $this->faker->randomElement($productIds),

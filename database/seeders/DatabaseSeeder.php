@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models;
+use App\Models\Product;
+use App\Models\Photo;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,7 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Models\Product::factory(30)->create();
-        Models\Photo::factory(50)->create();
+        Product::factory(30)->create();
+        Photo::factory(50)->create();
     }
 }

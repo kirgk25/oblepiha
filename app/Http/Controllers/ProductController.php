@@ -2,72 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Models;
-use App\Services;
-use App\Http\Requests;
-use Illuminate\Http\Request;
+use App\Http\Resources\IndexProductCollection;
+use App\Http\Resources\ShowProductResource;
+use App\Models\Product;
+use App\Services\ProductService;
+use App\Http\Requests\IndexProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Resources\UpdateProductResource;
+use App\Http\Resources\StoreProductResource;
 
 class ProductController extends Controller
 {
-    /** @var Services\JsonService */
-    private $_jsonService;
+    /** @var ProductService */
+    private $_productService;
 
-    public function __construct()
+    public function __construct(ProductService $productService)
     {
-
-        $this->_jsonService = new Services\JsonService();
+        $this->_productService = $productService;
     }
 
-    public function index(Requests\IndexProductRequest $request)
+    public function index(IndexProductRequest $request)
     {
-        $products = Models\Product::query();
-
-        foreach ($request->sort ?? [] as $field => $direction) {
-            $products->orderBy($field, $direction);
-        }
-
-        $products = $products->paginate(PAGINATION_LIMIT);
-
-        $products->makeVisible([
-            'id',
-            'created_at',
-            'mainPhoto'
-        ]);
-
-        return $this->_jsonService->response($products);
+        return new IndexProductCollection($this->_productService->index());
     }
 
-    public function store(Requests\StoreProductRequest $request)
+    public function store(StoreProductRequest $request)
     {
-        $product = Models\Product::create($request->all());
-        $product->photos()->createMany($request->photos);
-
-        return $this->_jsonService->response($product->only('id'));
+        return new StoreProductResource($this->_productService->store());
     }
 
-    public function show(Models\Product $product, Request $request)
+    public function show(Product $product)
     {
-        $product->load('photos');
-
-        if ($request->fields) {
-            // optional fields
-            if (in_array('photos', $request->fields)) {
-                // other photos
-                $product->makeVisible('photos');
-            }
-            if (in_array('description', $request->fields)) {
-                $product->makeVisible('description');
-            }
-        }
-
-        return $this->_jsonService->response($product);
+        return new ShowProductResource($product);
     }
 
-    public function update(Models\Product $product, Requests\UpdateProductRequest $request)
+    public function update(Product $product, UpdateProductRequest $request)
     {
-        $product->update($request->all());
-        $product->photos()->createMany($request->photos);
-
-        return $this->_jsonService->response($product->only('id'));
+        return new UpdateProductResource($this->_productService->update($product));
     }
 }

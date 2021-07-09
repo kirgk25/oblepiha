@@ -16,30 +16,19 @@ class IndexProductRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
-            'sort' => function($attribute, $value, $fail) {
-                foreach ($value as $field => $direction) {
-                    $isFieldError = !in_array($field, [
-                        'name',
-                        'cost',
-                    ]);
-                    $isDirectionError = !in_array($direction, [
-                        'asc',
-                        'desc',
-                    ]);
+            'sort' => 'array:name,cost',
+            'sort.name' => 'in:asc,desc',
+            'sort.cost' => 'in:asc,desc',
+        ];
+    }
 
-                    if ($isFieldError || $isDirectionError) {
-                        $fail(__('content.errors.sort'));
-                    }
-                }
-            }
+    public function messages()
+    {
+        return [
+            'sort.*' => __('content.errors.sort'),
         ];
     }
 }

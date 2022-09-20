@@ -19,15 +19,6 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-// Фиксы:
-//  - добавил небольшой unit test
-//  - добавил service для Product
-//  - заюзал resources
-//  - cache
-//  - routing
-//  - constants
-//  - namespaces
-//  - validation
 Route::resource('products', Controllers\ProductController::class)->only([
     'index',
     'show',

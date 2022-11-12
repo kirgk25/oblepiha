@@ -71,7 +71,7 @@ services:
     volumes:
       - .docker/mysql/data:/var/lib/mysql
     environment:
-      - MYSQL_DATABASE=my-db
+      - MYSQL_DATABASE=e-store
       - MYSQL_ROOT_PASSWORD=root
   rabbitmq:
       # set name of image:

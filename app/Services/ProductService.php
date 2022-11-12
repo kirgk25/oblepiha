@@ -21,7 +21,7 @@ class ProductService
         $this->_cache = cache();
     }
 
-    public function _getRequestKey(): string
+    private function _getRequestKey(): string
     {
         return md5(json_encode($this->_request->all()));
     }

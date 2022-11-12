@@ -9,6 +9,9 @@
 .env.backup
 .phpunit.result.cache
 docker-compose.override.yml
+/.docker/mysql/data
+/.docker/nginx/logs
+/.docker/php/profiler
 Homestead.json
 Homestead.yaml
 npm-debug.log

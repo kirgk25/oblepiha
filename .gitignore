@@ -1,12 +1,14 @@
 /_ide_helper.php
 /.phpstorm.meta.php
 /node_modules
+/public/build
 /public/hot
 /public/storage
 /storage/*.key
 /vendor
 .env
 .env.backup
+.env.production
 .phpunit.result.cache
 docker-compose.override.yml
 /.docker/mysql/data
@@ -14,7 +16,9 @@ docker-compose.override.yml
 /.docker/php/profiler
 Homestead.json
 Homestead.yaml
+auth.json
 npm-debug.log
 yarn-error.log
+/.fleet
 /.idea
 /.vscode

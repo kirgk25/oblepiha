@@ -12,7 +12,7 @@ class IndexProductResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'mainPhoto' => $this->mainPhoto,
-            'created_at' => $this->created_at,
+            'createdAt' => $this->created_at,
         ];
     }
 }

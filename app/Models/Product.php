@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $description
  * @property string $cost
+ * @property-read string $main_photo
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Photo[] $photos
  * @property-read int|null $photos_count
  * @method static \Database\Factories\ProductFactory factory(...$parameters)

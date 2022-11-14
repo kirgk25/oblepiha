@@ -14,22 +14,21 @@ use App\Http\Resources\StoreProductResource;
 
 class ProductController extends Controller
 {
-    /** @var ProductService */
-    private $_productService;
+    private ProductService $productService;
 
     public function __construct(ProductService $productService)
     {
-        $this->_productService = $productService;
+        $this->productService = $productService;
     }
 
     public function index(IndexProductRequest $request)
     {
-        return new IndexProductCollection($this->_productService->index());
+        return new IndexProductCollection($this->productService->index());
     }
 
     public function store(StoreProductRequest $request)
     {
-        return new StoreProductResource($this->_productService->store());
+        return new StoreProductResource($this->productService->store());
     }
 
     public function show(Product $product)
@@ -39,6 +38,6 @@ class ProductController extends Controller
 
     public function update(Product $product, UpdateProductRequest $request)
     {
-        return new UpdateProductResource($this->_productService->update($product));
+        return new UpdateProductResource($this->productService->update($product));
     }
 }

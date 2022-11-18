@@ -44,7 +44,9 @@ class FavouriteService extends BaseService
                 ->select('product_id')
                 ->pluck('product_id')
                 ->flip()
-                ->toArray();
+                ->transform(function () {
+                    return true;
+                })->toArray();
 
             $this->cacheService->set($cacheKey, $favouriteProductIds, 600);
         }

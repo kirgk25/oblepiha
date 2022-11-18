@@ -26,11 +26,6 @@ class FavouriteService extends BaseService
         $this->deleteFavouriteProductIdsFromCache();
     }
 
-    private function deleteFavouriteProductIdsFromCache(): void
-    {
-        $this->cacheService->delete($this->getCacheKey());
-    }
-
     public function getIsFavouriteByProduct(Product $product): bool
     {
         $favouriteProductIds = $this->getFavouriteProductIdsFromCache();
@@ -57,8 +52,13 @@ class FavouriteService extends BaseService
         return $favouriteProductIds;
     }
 
+    private function deleteFavouriteProductIdsFromCache(): void
+    {
+        $this->cacheService->delete($this->getCacheKey());
+    }
+
     private function getCacheKey(): string
     {
-        return sprintf('user.%s.favouriteProductIdsByProductId', $this->getUserId());
+        return sprintf('user.%s.favouriteProductIds', $this->getUserId());
     }
 }

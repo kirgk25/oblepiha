@@ -14,8 +14,13 @@ class BaseService
         $this->cacheService = new CacheService();
     }
 
-    public function user(): User
+    public function getUser(): User
     {
         return auth()->user();
+    }
+
+    public function getUserId(): int
+    {
+        return auth()->user()->id;
     }
 }

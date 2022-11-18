@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Product;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\IndexProductCollection;
 use App\Http\Resources\ShowProductResource;
 use App\Models\Product;
-use App\Services\ProductService;
+use App\Services\Product\ProductService;
 use App\Http\Requests\IndexProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Requests\StoreProductRequest;

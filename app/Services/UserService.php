@@ -52,11 +52,11 @@ class UserService extends BaseService
 
     public function deleteToken(): void
     {
-        $this->user()->currentAccessToken()->delete();
+        $this->getUser()->currentAccessToken()->delete();
     }
 
     public function deleteAllTokens(): void
     {
-        $this->user()->tokens()->delete();
+        $this->getUser()->tokens()->delete();
     }
 }

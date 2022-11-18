@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Services\Product\FavouriteService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
 
 /**
  * App\Models\Product
@@ -14,7 +17,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $description
  * @property string $cost
- * @property-read string $main_photo
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Photo[] $photos
  * @property-read int|null $photos_count
  * @method static \Database\Factories\ProductFactory factory(...$parameters)
@@ -47,8 +49,17 @@ class Product extends Model
         return $this->hasMany(Photo::class);
     }
 
-    public function getMainPhotoAttribute(): string
+    public function mainPhoto(): Attribute
     {
-        return $this->photos->first()->url ?? '';
+        return Attribute::make(
+            get: fn () => $this->photos->first()->url ?? '',
+        );
+    }
+
+    public function isFavourite(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => (new FavouriteService())->getIsFavouriteByProduct($this),
+        );
     }
 }

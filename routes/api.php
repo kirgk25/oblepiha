@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Product\FavouriteController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,13 @@ Route::middleware('auth:sanctum')->group(function () {
         'store',
         'update',
     ]);
+
+    Route::prefix('products/{product}/favourite')
+        ->controller(FavouriteController::class)
+        ->group(function () {
+            Route::post('/', 'store');
+            Route::delete('/', 'destroy');
+        });
 });
 
 

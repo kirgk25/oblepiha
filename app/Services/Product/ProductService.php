@@ -1,7 +1,9 @@
-<?php namespace App\Services;
+<?php namespace App\Services\Product;
 
 use App\Models\Product;
+use App\Services\BaseService;
 use Illuminate\Pagination\LengthAwarePaginator;
+use const PAGINATION_LIMIT;
 
 class ProductService extends BaseService
 {

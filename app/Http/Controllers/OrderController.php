@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrderRequest;
-use App\Http\Resources\StoreOrderResource;
 use App\Http\Resources\Order\Index\IndexOrderCollection;
+use App\Http\Resources\StoreOrderResource;
 use App\Services\OrderService;
 
 class OrderController extends Controller
@@ -20,6 +20,15 @@ class OrderController extends Controller
 
     public function store(StoreOrderRequest $request)
     {
-        return new StoreOrderResource($this->orderService->store());
+        $this->orderService->store();
+    }
+
+    public function consumeStore()
+    {
+        $order = $this->orderService->consumeStore();
+
+        if ($order) {
+            return new StoreOrderResource($order);
+        }
     }
 }

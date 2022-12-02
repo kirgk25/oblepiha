@@ -1,9 +1,9 @@
 services:
   nginx:
     # set name of image:
-    image: e-store-image-nginx
+    image: oblepiha-image-nginx
     # set name of container
-    container_name: e-store-container-nginx
+    container_name: oblepiha-container-nginx
     build:
       # directory where a Dockerfile to build
       context: .docker/nginx
@@ -12,7 +12,7 @@ services:
       - "80:80"
       - "443:443"
     networks:
-      - e-store-network
+      - oblepiha-network
     depends_on:
       - php
       - rabbitmq
@@ -23,9 +23,9 @@ services:
     restart: always
   php:
     # set name of image:
-    image: e-store-image-php
+    image: oblepiha-image-php
     # set name of container
-    container_name: e-store-container-php
+    container_name: oblepiha-container-php
     build:
       # directory where a Dockerfile to build
       context: .docker/php
@@ -35,7 +35,7 @@ services:
           - GROUP_ID=${GROUP_ID}
           - WWW_DATA_GROUP_ID=${WWW_DATA_GROUP_ID}
     networks:
-      - e-store-network
+      - oblepiha-network
     depends_on:
       - mysql
     volumes:
@@ -49,12 +49,12 @@ services:
         - host.docker.internal:host-gateway
     environment:
         # serverName will be using in IDE settings (for debugging by xdebug)
-        - PHP_IDE_CONFIG=serverName=e-store-config-server
+        - PHP_IDE_CONFIG=serverName=oblepiha-config-server
   mysql:
     # set name of image:
-    image: e-store-image-mysql
+    image: oblepiha-image-mysql
     # set name of container
-    container_name: e-store-container-mysql
+    container_name: oblepiha-container-mysql
     build:
       # directory where a Dockerfile to build
       context: .docker/mysql
@@ -66,18 +66,18 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - e-store-network
+      - oblepiha-network
     restart: always
     volumes:
       - .docker/mysql/data:/var/lib/mysql
     environment:
-      - MYSQL_DATABASE=e-store
+      - MYSQL_DATABASE=oblepiha
       - MYSQL_ROOT_PASSWORD=root
   rabbitmq:
       # set name of image:
-      image: e-store-image-rabbitmq
+      image: oblepiha-image-rabbitmq
       # set name of container
-      container_name: e-store-container-rabbitmq
+      container_name: oblepiha-container-rabbitmq
       build:
           # directory where a Dockerfile to build
           context: .docker/rabbitmq
@@ -88,13 +88,13 @@ services:
           # http://host-ip:15672 (outside the host):
           - "15672:15672"
       networks:
-          - e-store-network
+          - oblepiha-network
       restart: always
   phpmyadmin:
       # set name of image:
-      image: e-store-image-phpmyadmin
+      image: oblepiha-image-phpmyadmin
       # set name of container
-      container_name: e-store-container-phpmyadmin
+      container_name: oblepiha-container-phpmyadmin
       build:
           # directory where a Dockerfile to build
           context: .docker/phpmyadmin
@@ -104,11 +104,11 @@ services:
       environment:
           - PMA_HOST=mysql
       networks:
-          - e-store-network
+          - oblepiha-network
       # start after mysql (but starting after php or web-server containers is not required because phpmyadmin image already contains them)
       depends_on:
           - mysql
       restart: always
 networks:
-  e-store-network:
+  oblepiha-network:
     # here may be additional parameters for network (such as driver)

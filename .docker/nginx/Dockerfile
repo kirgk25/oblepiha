@@ -4,8 +4,8 @@ RUN openssl req -newkey rsa:4096 \
                 -sha256 \
                 -days 3650 \
                 -nodes \
-                -out e-store.crt \
-                -keyout e-store.key \
-                -subj "/C=US/ST=New Yourk/L=New Yourk/O=e-store company/OU=IT Department/CN=www.e-store.local" \
-    && mv e-store.crt /etc/ssl/certs \
-    && mv e-store.key /etc/ssl/private
+                -out oblepiha.crt \
+                -keyout oblepiha.key \
+                -subj "/C=US/ST=New Yourk/L=New Yourk/O=oblepiha company/OU=IT Department/CN=www.oblepiha.local" \
+    && mv oblepiha.crt /etc/ssl/certs \
+    && mv oblepiha.key /etc/ssl/private

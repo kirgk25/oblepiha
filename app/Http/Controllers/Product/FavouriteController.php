@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Services\Product\FavouriteService;
+use App\Services\FavouriteService;
 
 class FavouriteController extends Controller
 {

@@ -7,11 +7,13 @@ class BaseService
 {
     protected Request $request;
     protected CacheService $cacheService;
+    protected MessageBrokerService $messageBrokerService;
 
     public function __construct()
     {
         $this->request = request();
         $this->cacheService = new CacheService();
+        $this->messageBrokerService = new MessageBrokerService();
     }
 
     public function getUser(): User

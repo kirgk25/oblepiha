@@ -42,10 +42,14 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('/', 'destroy');
         });
 
-    Route::resource('orders', OrderController::class)->only([
-        'index',
-        'store',
-    ]);
+    Route::prefix('orders')
+        ->controller(OrderController::class)
+        ->group(function () {
+            Route::get('/', 'index');
+
+            Route::post('/', 'store');
+            Route::post('/consume', 'consumeStore');
+        });
 });
 
 

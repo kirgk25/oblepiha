@@ -38,12 +38,12 @@ install:
 	# and set permissions (including database volume permissions)
 	make set-permissions
 	make run
-	docker exec -it e-store-container-php composer install --dev
-	docker exec -it e-store-container-php npm install
+	docker exec -it oblepiha-container-php composer install --dev
+	docker exec -it oblepiha-container-php npm install
 	# create .env if it doesn't exist
 	ls .env 2> /dev/null || cp .env.example .env
-	docker exec -it e-store-container-php php artisan key:generate
-	docker exec -it e-store-container-php php artisan storage:link
+	docker exec -it oblepiha-container-php php artisan key:generate
+	docker exec -it oblepiha-container-php php artisan storage:link
 	# profiler doesn't create directory automatically (so we need to create it manually)
 	mkdir -p .docker/php/profiler
 
@@ -58,4 +58,4 @@ else
 endif
 
 in:
-	docker exec -it e-store-container-php bash
+	docker exec -it oblepiha-container-php bash

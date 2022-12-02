@@ -1,8 +1,7 @@
-<?php namespace App\Services\Product;
+<?php namespace App\Services;
 
 use App\Models\Favourite;
 use App\Models\Product;
-use App\Services\BaseService;
 
 class FavouriteService extends BaseService
 {

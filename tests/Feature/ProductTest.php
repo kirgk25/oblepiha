@@ -2,10 +2,9 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Composer\Util\Http\Response;
 use Tests\TestCase;
+use App\Models\User;
 
 class ProductTest extends TestCase
 {
@@ -16,7 +15,10 @@ class ProductTest extends TestCase
      */
     public function test_store()
     {
-        $this->postJson('/api/products', [
+        $user = User::newModelInstance();
+
+        $this->actingAs($user)
+            ->postJson('/api/products', [
                 "name" => "spider-man",
                 "cost" => 123.45,
                 "description" => "marvel",

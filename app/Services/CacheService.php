@@ -1,18 +1,15 @@
 <?php namespace App\Services;
 
-use Illuminate\Http\Request;
 use Illuminate\Cache\CacheManager;
 
 class CacheService
 {
     private const DEFAULT_TTL = 600;
 
-    private Request $request;
     private CacheManager $cache;
 
     public function __construct()
     {
-        $this->request = request();
         $this->cache = cache();
     }
 
@@ -43,6 +40,6 @@ class CacheService
 
     public function getRequestKey(): string
     {
-        return md5(json_encode($this->request->all()));
+        return md5(json_encode(request()->all()));
     }
 }

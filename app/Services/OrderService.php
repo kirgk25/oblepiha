@@ -1,10 +1,8 @@
 <?php namespace App\Services;
 
 use App\Models\Order;
-use App\Models\OrderProduct;
-use App\Models\Product;
-use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Collection;
+use App\Services\Components\Order\StorePublisher;
+use App\Services\Components\Order\StoreConsumer;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class OrderService extends BaseService
@@ -15,6 +13,8 @@ class OrderService extends BaseService
     const STATUS_WAIT = 4;
     const STATUS_DELIVERED = 5;
     const STATUS_CANCELLED = 6;
+
+    const QUEUE_STORE = 'orders.store';
 
     public function index(): LengthAwarePaginator
     {
@@ -27,54 +27,16 @@ class OrderService extends BaseService
         return $orders;
     }
 
-    public function store(): Order
+    public function store(): void
     {
-        $request = request();
+        $storePublisher = new StorePublisher();
+        $orderProducts = request()->orderProducts;
 
-        $order = $this->createOrder();
-        $productsById = $this->getProductsById($request);
-
-        $newOrderProducts = [];
-        foreach ($request->orderProducts as $requestOrderProduct) {
-            $productId = $requestOrderProduct['product_id'];
-            $product = $productsById[$productId];
-
-            $newOrderProduct = [];
-            $newOrderProduct['order_id'] = $order->id;
-            $newOrderProduct['product_id'] = $productId;
-            $newOrderProduct['quantity'] = $requestOrderProduct['quantity'];
-            $newOrderProduct['amount'] = $requestOrderProduct['quantity'] * $product->cost;
-
-            $newOrderProducts[$productId] = $newOrderProduct;
-            $order->amount += $newOrderProduct['amount'];
-        }
-
-        OrderProduct::insert($newOrderProducts);
-        $order->save();
-
-        return $order;
+        $storePublisher->publish($orderProducts, self::QUEUE_STORE);
     }
 
-    private function createOrder(): Order
+    public function consumeStore(): ?Order
     {
-        $userId = $this->getUserId();
-        $tempNumber = md5(rand(0,100000)) . '-' . rand(0,100);
-
-        $order = Order::create([
-            'user_id' => $userId,
-            'status' => self::STATUS_CREATED,
-            'number' => $tempNumber
-        ]);
-
-        $order->number = now()->format('ymd') . '-' . $order->id;
-        $order->save();
-
-        return $order;
-    }
-
-    private function getProductsById(Request $request): Collection
-    {
-        $productIds = array_column($request->orderProducts, 'product_id');
-        return Product::findMany($productIds)->keyBy('id');
+        return (new StoreConsumer())->consume(self::QUEUE_STORE);
     }
 }

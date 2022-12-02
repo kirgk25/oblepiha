@@ -3,6 +3,7 @@
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Product\FavouriteController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('user')->controller(UserController::class)->group(function () {
+Route::prefix('users')->controller(UserController::class)->group(function () {
     Route::post('/login', 'login');
     Route::post('/token', 'token');
 
@@ -40,6 +41,11 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/', 'store');
             Route::delete('/', 'destroy');
         });
+
+    Route::resource('orders', OrderController::class)->only([
+        'index',
+        'store',
+    ]);
 });
 
 

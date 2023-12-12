@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\DTO\Product\CreateDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\IndexProductCollection;
 use App\Http\Resources\ShowProductResource;
@@ -29,7 +30,11 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        return new StoreProductResource($this->productService->store());
+        return new StoreProductResource(
+            $this->productService->store(
+                new CreateDTO($request->all())
+            )
+        );
     }
 
     public function show(Product $product)

@@ -111,4 +111,8 @@ services:
       restart: always
 networks:
   oblepiha-network:
-    # here may be additional parameters for network (such as driver)
+      driver: bridge
+      ipam:
+          driver: default
+          config:
+              - subnet: 192.168.220.0/28

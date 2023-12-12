@@ -22,11 +22,11 @@ clean:
 		vendor \
 		node_modules \
 		public/storage
-	docker-compose rm -f
+	docker compose rm -f
 
 install:
 	make stop
-	docker-compose build \
+	docker compose build \
       --build-arg USER_NAME=$(USER_NAME) \
       --build-arg USER_ID=$(USER_ID) \
       --build-arg GROUP_ID=$(GROUP_ID) \
@@ -48,7 +48,7 @@ install:
 	mkdir -p .docker/php/profiler
 
 run:
-	docker-compose up -d
+	docker compose up -d
 
 stop:
 ifeq ($(RUNNING_CONTAINER_IDS),)
@@ -59,3 +59,6 @@ endif
 
 in:
 	docker exec -it oblepiha-container-php bash
+
+test:
+	docker exec -it oblepiha-container-php php artisan test

@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Product;
 
+use App\Models\User;
 use Composer\Util\Http\Response;
 use Tests\TestCase;
-use App\Models\User;
 
 class ProductTest extends TestCase
 {
@@ -13,7 +13,7 @@ class ProductTest extends TestCase
      *
      * @return void
      */
-    public function test_store()
+    public function testStore()
     {
         $user = User::newModelInstance();
 
@@ -29,9 +29,9 @@ class ProductTest extends TestCase
                 ],
             ])
             ->assertStatus(\Illuminate\Http\Response::HTTP_CREATED)
-            ->assertJson([
+            ->assertJsonStructure([
                 'data' => [
-                    'id' => true,
+                    'id'
                 ]
             ]);
     }

@@ -5,14 +5,12 @@ use Illuminate\Http\Request;
 
 class BaseService
 {
-    protected Request $request;
     protected CacheService $cacheService;
     protected MessageBrokerService $messageBrokerService;
 
     public function __construct()
     {
-        $this->request = request();
-        $this->cacheService = new CacheService();
+        $this->cacheService = app()->make(CacheService::class);
         $this->messageBrokerService = new MessageBrokerService();
     }
 

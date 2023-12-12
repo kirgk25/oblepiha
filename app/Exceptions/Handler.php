@@ -54,15 +54,8 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $throwable)
     {
         if ($throwable instanceof ValidationException) {
-            $errors = $throwable->errors();
-
-            $firstErrorKey = array_keys($errors)[0];
-            $firstErrorMessage = array_values($errors)[0][0];
-
             return response()->json([
-                'errors' => [
-                   $firstErrorKey => $firstErrorMessage,
-                ],
+                'errors' => $throwable->errors(),
                 'code' => $throwable->status,
             ], $throwable->status);
         } elseif ($throwable instanceof ModelNotFoundException) {

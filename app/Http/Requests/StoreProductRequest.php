@@ -26,7 +26,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:' . Product::NAME_MAX_LENGTH,
-            'description' => 'string|max:' . Product::DESCRIPTION_MAX_LENGTH,
+            'description' => 'required|string|max:' . Product::DESCRIPTION_MAX_LENGTH,
             'cost' => 'required|numeric|min:0',
             'photos' => 'required|array|max:3',
         ];

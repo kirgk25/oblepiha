@@ -22,7 +22,7 @@ clean:
 		vendor \
 		node_modules \
 		public/storage
-	docker compose rm -f
+	docker compose rm -f -v
 
 install:
 	make stop

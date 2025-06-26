@@ -44,6 +44,7 @@ install:
 	ls .env 2> /dev/null || cp .env.example .env
 	docker exec -it oblepiha-container-php php artisan key:generate
 	docker exec -it oblepiha-container-php php artisan storage:link
+	docker exec -it oblepiha-container-php php artisan migrate
 	# profiler doesn't create directory automatically (so we need to create it manually)
 	mkdir -p .docker/php/profiler
 

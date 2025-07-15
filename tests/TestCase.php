@@ -22,7 +22,7 @@ abstract class TestCase extends BaseTestCase
 
         $this->user = User::factory()->createOne();
 
-        App::setLocale($this->user->language);
+        App::setLocale('ru');
         $this->actingAs($this->user);
     }
 }

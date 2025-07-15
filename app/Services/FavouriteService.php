@@ -25,7 +25,7 @@ class FavouriteService extends BaseService
         $this->deleteFavouriteProductIdsFromCache();
     }
 
-    public function getIsFavouriteByProduct(Product $product): bool
+    public function isFavouriteByProduct(Product $product): bool
     {
         $favouriteProductIds = $this->getFavouriteProductIdsFromCache();
 

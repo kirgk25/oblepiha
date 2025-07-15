@@ -8,12 +8,9 @@ use Tests\TestCase;
 
 class ProductTest extends TestCase
 {
-    public function testIndex()
+    public function test_index()
     {
         // Arrange
-        $user = User::factory()->createOne();
-
-        // Act
         $this
             ->postJson('/api/products', [
                 "name" => "product-1",
@@ -50,18 +47,22 @@ class ProductTest extends TestCase
                 'data' => [
                     [
                         'name' => 'product-1',
+                        'mainPhoto' => 'photo-1-1',
+                        'isFavourite' => false,
                     ],
                     [
                         'name' => 'product-2',
+                        'mainPhoto' => 'photo-2-1',
+                        'isFavourite' => false,
                     ]
                 ]
             ]);
     }
     
-    public function testStore()
+    public function test_store()
     {
         // Arrange
-        $user = User::newModelInstance();
+        // No arrange
 
         // Act
         $response = $this

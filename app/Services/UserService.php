@@ -33,12 +33,11 @@ class UserService extends BaseService
 
     public function createToken(int $phone, int $code, string $deviceName): ?string
     {
-        $user = User::firstWhere(compact('phone'));
-        if (!$user) {
-            throw new ModelNotFoundException();
-        }
+        $user = User::firstOrFail([
+            'phone' => $phone
+        ]);
 
-        $cacheKey = $this->getCodeCacheKeyByUserId($user->id);
+        $cacheKey = $this->getCodeCacheKeyByUserId($user->getKey());
         $cacheCode = $this->cacheService->get($cacheKey);
 
         if (empty($cacheCode) || $cacheCode !== $code) {

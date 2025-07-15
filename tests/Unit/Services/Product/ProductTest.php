@@ -16,11 +16,17 @@ class ProductTest extends TestCase
         $this->service = $this->app->make(ProductService::class);
     }
 
-    public function testStore()
+    public function test_store()
     {
-        $product = $this->service->store(new CreateDTO(
-            name: 'plate',
-            description: 'green plate',
+        // Arrange
+        // No arrange
+
+        // Act
+        $product = $this
+            ->service
+            ->store(new CreateDTO(
+            name: 'product-1',
+            description: 'description-1',
             cost: 123.45,
             photos: [
                 [
@@ -32,6 +38,7 @@ class ProductTest extends TestCase
             ],
         ));
 
+        // Assert
         $this->assertDatabaseHas(
             'products',
             [

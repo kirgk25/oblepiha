@@ -3,32 +3,82 @@
 namespace Tests\Feature\Product;
 
 use App\Models\User;
-use Composer\Util\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class ProductTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function testStore()
+    public function testIndex()
     {
-        $user = User::newModelInstance();
+        // Arrange
+        $user = User::factory()->createOne();
 
-        $this->actingAs($user)
+        // Act
+        $this
             ->postJson('/api/products', [
-                "name" => "spider-man",
+                "name" => "product-1",
                 "cost" => 123.45,
-                "description" => "marvel",
+                "description" => "description-1",
                 "photos"=> [
-                    ["url" => "photo-1"],
-                    ["url" => "photo-2"],
-                    ["url" => "photo-3"],
+                    ["url" => "photo-1-1"],
+                    ["url" => "photo-1-2"],
+                    ["url" => "photo-1-3"],
                 ],
             ])
-            ->assertStatus(\Illuminate\Http\Response::HTTP_CREATED)
+            ->assertSuccessful();
+        $this
+            ->postJson('/api/products', [
+                "name" => "product-2",
+                "cost" => 223.45,
+                "description" => "description-1",
+                "photos"=> [
+                    ["url" => "photo-2-1"],
+                    ["url" => "photo-2-2"],
+                    ["url" => "photo-2-3"],
+                ],
+            ])
+            ->assertSuccessful();
+
+        // Act
+        $response = $this
+            ->getJson('/api/products');
+
+        // Assert
+        $response
+            ->assertSuccessful()
+            ->assertJson([
+                'data' => [
+                    [
+                        'name' => 'product-1',
+                    ],
+                    [
+                        'name' => 'product-2',
+                    ]
+                ]
+            ]);
+    }
+    
+    public function testStore()
+    {
+        // Arrange
+        $user = User::newModelInstance();
+
+        // Act
+        $response = $this
+            ->postJson('/api/products', [
+                "name" => "product-1",
+                "cost" => 123.45,
+                "description" => "description-1",
+                "photos"=> [
+                    ["url" => "photo-1-1"],
+                    ["url" => "photo-1-2"],
+                    ["url" => "photo-1-3"],
+                ],
+            ]);
+
+        // Assert
+        $response
+            ->assertStatus(Response::HTTP_CREATED)
             ->assertJsonStructure([
                 'data' => [
                     'id'

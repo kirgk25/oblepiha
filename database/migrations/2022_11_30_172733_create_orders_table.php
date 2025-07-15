@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->unsignedTinyInteger('status')->default(OrderService::STATUS_CREATED);
-            $table->unsignedDecimal('amount')->default(0);
+            $table->decimal('amount')->unsigned()->default(0);
         });
 
         Schema::create('order_products', function (Blueprint $table) {
@@ -36,7 +36,7 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products');
 
             $table->unsignedTinyInteger('quantity')->default(0);
-            $table->unsignedDecimal('amount')->default(0);
+            $table->decimal('amount')->unsigned()->default(0);
 
             $table->unique(['order_id', 'product_id']);
         });

@@ -20,6 +20,8 @@ class BaseService
 
     public function getUserId(): int
     {
-        return auth()->user()->id;
+        return auth()
+            ->user()
+            ->getKey();
     }
 }

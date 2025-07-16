@@ -22,11 +22,10 @@ use Illuminate\Support\Carbon;
  * @property int $user_id
  * @property int $status
  * @property string $amount
- * @property-read Collection|OrderProduct[] $orderProducts
- * @property-read int|null $order_products_count
- * @method static Builder|Order newModelQuery()
- * @method static Builder|Order newQuery()
- * @method static Builder|Order query()
+ * @property-read Collection<int, OrderProduct> $orderProducts
+ * @method static Builder<static>|Order newModelQuery()
+ * @method static Builder<static>|Order newQuery()
+ * @method static Builder<static>|Order query()
  * @mixin Eloquent
  */
 class Order extends Model

@@ -31,18 +31,14 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|Favourite[] $favourites
- * @property-read int|null $favourites_count
- * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
- * @property-read int|null $notifications_count
- * @property-read Collection|Order[] $orders
- * @property-read int|null $orders_count
- * @property-read Collection|PersonalAccessToken[] $tokens
- * @property-read int|null $tokens_count
- * @method static UserFactory factory(...$parameters)
- * @method static Builder|User newModelQuery()
- * @method static Builder|User newQuery()
- * @method static Builder|User query()
+ * @property-read Collection<int, Favourite> $favourites
+ * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
+ * @property-read Collection<int, Order> $orders
+ * @property-read Collection<int, PersonalAccessToken> $tokens
+ * @method static UserFactory factory($count = null, $state = [])
+ * @method static Builder<static>|User newModelQuery()
+ * @method static Builder<static>|User newQuery()
+ * @method static Builder<static>|User query()
  * @mixin Eloquent
  */
 class User extends Authenticatable

@@ -24,12 +24,13 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property string $description
  * @property string $cost
- * @property-read Collection|Photo[] $photos
- * @property-read int|null $photos_count
- * @method static ProductFactory factory(...$parameters)
- * @method static Builder|Product newModelQuery()
- * @method static Builder|Product newQuery()
- * @method static Builder|Product query()
+ * @property-read mixed $is_favourite
+ * @property-read mixed $main_photo
+ * @property-read Collection<int, Photo> $photos
+ * @method static ProductFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Product newModelQuery()
+ * @method static Builder<static>|Product newQuery()
+ * @method static Builder<static>|Product query()
  * @mixin Eloquent
  */
 class Product extends Model

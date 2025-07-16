@@ -18,10 +18,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $product_id
  * @property int $quantity
  * @property string $amount
- * @property-read Product|null $product
- * @method static Builder|OrderProduct newModelQuery()
- * @method static Builder|OrderProduct newQuery()
- * @method static Builder|OrderProduct query()
+ * @property-read Product $product
+ * @method static Builder<static>|OrderProduct newModelQuery()
+ * @method static Builder<static>|OrderProduct newQuery()
+ * @method static Builder<static>|OrderProduct query()
  * @mixin Eloquent
  */
 class OrderProduct extends Model

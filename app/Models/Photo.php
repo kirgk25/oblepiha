@@ -19,10 +19,10 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property int $product_id
  * @property string $url
- * @method static PhotoFactory factory(...$parameters)
- * @method static Builder|Photo newModelQuery()
- * @method static Builder|Photo newQuery()
- * @method static Builder|Photo query()
+ * @method static PhotoFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Photo newModelQuery()
+ * @method static Builder<static>|Photo newQuery()
+ * @method static Builder<static>|Photo query()
  * @mixin Eloquent
  */
 class Photo extends Model

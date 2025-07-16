@@ -15,9 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $user_id
  * @property int $product_id
- * @method static Builder|Favourite newModelQuery()
- * @method static Builder|Favourite newQuery()
- * @method static Builder|Favourite query()
+ * @method static Builder<static>|Favourite newModelQuery()
+ * @method static Builder<static>|Favourite newQuery()
+ * @method static Builder<static>|Favourite query()
  * @mixin Eloquent
  */
 class Favourite extends Model

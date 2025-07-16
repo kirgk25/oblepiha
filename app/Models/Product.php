@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Services\FavouriteService;
@@ -34,8 +36,8 @@ class Product extends Model
 {
     use HasFactory;
 
-    const NAME_MAX_LENGTH = 200;
-    const DESCRIPTION_MAX_LENGTH = 1000;
+    public const NAME_MAX_LENGTH = 200;
+    public const DESCRIPTION_MAX_LENGTH = 1000;
 
     protected $fillable = [
         'name',
@@ -51,14 +53,14 @@ class Product extends Model
     public function mainPhoto(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->photos->first()->url ?? '',
+            get: fn() => $this->photos->first()->url ?? '',
         );
     }
 
     public function isFavourite(): Attribute
     {
         return Attribute::make(
-            get: fn () => (new FavouriteService())->isFavouriteByProduct($this),
+            get: fn() => new FavouriteService()->isFavouriteByProduct($this),
         );
     }
 }

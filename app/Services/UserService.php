@@ -1,4 +1,8 @@
-<?php namespace App\Services;
+<?php
+
+declare(strict_types=1);
+
+namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -28,13 +32,13 @@ class UserService extends BaseService
 
     private function getCodeCacheKeyByUserId(int $userId): string
     {
-       return sprintf('user.%s.code', $userId);
+        return sprintf('user.%s.code', $userId);
     }
 
     public function createToken(int $phone, int $code, string $deviceName): ?string
     {
         $user = User::firstOrFail([
-            'phone' => $phone
+            'phone' => $phone,
         ]);
 
         $cacheKey = $this->getCodeCacheKeyByUserId($user->getKey());

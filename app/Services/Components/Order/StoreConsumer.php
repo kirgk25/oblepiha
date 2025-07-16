@@ -1,4 +1,8 @@
-<?php namespace App\Services\Components\Order;
+<?php
+
+declare(strict_types=1);
+
+namespace App\Services\Components\Order;
 
 use App\Models\Order;
 use App\Models\Product;
@@ -44,12 +48,12 @@ class StoreConsumer extends BaseService
 
     private function createOrder(int $userId): Order
     {
-        $tempNumber = md5(rand(0,100000)) . '-' . rand(0,100);
+        $tempNumber = md5(rand(0, 100000)) . '-' . rand(0, 100);
 
         $order = Order::create([
             'user_id' => $userId,
             'status' => OrderService::STATUS_CREATED,
-            'number' => $tempNumber
+            'number' => $tempNumber,
         ]);
 
         $order->number = now()->format('ymd') . '-' . $order->id;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Services\Product;
 
 use App\DTO\Product\CreateDTO;
@@ -25,18 +27,18 @@ class ProductTest extends TestCase
         $product = $this
             ->service
             ->store(new CreateDTO(
-            name: 'product-1',
-            description: 'description-1',
-            cost: 123.45,
-            photos: [
-                [
-                    'url' => 'http://example.com/first.jpg',
+                name: 'product-1',
+                description: 'description-1',
+                cost: 123.45,
+                photos: [
+                    [
+                        'url' => 'http://example.com/first.jpg',
+                    ],
+                    [
+                        'url' => 'http://example.com/second.jpg',
+                    ],
                 ],
-                [
-                    'url' => 'http://example.com/second.jpg',
-                ],
-            ],
-        ));
+            ));
 
         // Assert
         $this->assertDatabaseHas(

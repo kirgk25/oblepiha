@@ -1,8 +1,13 @@
-<?php namespace App\Services;
+<?php
+
+declare(strict_types=1);
+
+namespace App\Services;
 
 use App\DTO\Product\CreateDTO;
 use App\Models\Product;
 use Illuminate\Pagination\LengthAwarePaginator;
+
 use const PAGINATION_LIMIT;
 
 class ProductService extends BaseService

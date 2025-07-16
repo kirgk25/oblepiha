@@ -1,4 +1,8 @@
-<?php namespace App\Services;
+<?php
+
+declare(strict_types=1);
+
+namespace App\Services;
 
 use App\Models\Order;
 use App\Services\Components\Order\StorePublisher;
@@ -7,14 +11,14 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class OrderService extends BaseService
 {
-    const STATUS_CREATED = 1;
-    const STATUS_ASSEMBLE = 2;
-    const STATUS_EN_ROUTE = 3;
-    const STATUS_WAIT = 4;
-    const STATUS_DELIVERED = 5;
-    const STATUS_CANCELLED = 6;
+    public const STATUS_CREATED = 1;
+    public const STATUS_ASSEMBLE = 2;
+    public const STATUS_EN_ROUTE = 3;
+    public const STATUS_WAIT = 4;
+    public const STATUS_DELIVERED = 5;
+    public const STATUS_CANCELLED = 6;
 
-    const QUEUE_STORE = 'orders.store';
+    public const QUEUE_STORE = 'orders.store';
 
     public function index(): LengthAwarePaginator
     {
@@ -37,6 +41,6 @@ class OrderService extends BaseService
 
     public function consumeStore(): ?Order
     {
-        return (new StoreConsumer())->consume(self::QUEUE_STORE);
+        return new StoreConsumer()->consume(self::QUEUE_STORE);
     }
 }

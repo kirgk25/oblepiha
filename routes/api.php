@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Product\FavouriteController;
 use App\Http\Controllers\UserController;
@@ -51,5 +53,3 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/consume', 'consumeStore');
         });
 });
-
-

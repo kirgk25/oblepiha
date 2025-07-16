@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Product;
 
 use App\Models\User;
@@ -16,7 +18,7 @@ class ProductTest extends TestCase
                 "name" => "product-1",
                 "cost" => 123.45,
                 "description" => "description-1",
-                "photos"=> [
+                "photos" => [
                     ["url" => "photo-1-1"],
                     ["url" => "photo-1-2"],
                     ["url" => "photo-1-3"],
@@ -28,7 +30,7 @@ class ProductTest extends TestCase
                 "name" => "product-2",
                 "cost" => 223.45,
                 "description" => "description-1",
-                "photos"=> [
+                "photos" => [
                     ["url" => "photo-2-1"],
                     ["url" => "photo-2-2"],
                     ["url" => "photo-2-3"],
@@ -54,11 +56,11 @@ class ProductTest extends TestCase
                         'name' => 'product-2',
                         'mainPhoto' => 'photo-2-1',
                         'isFavourite' => false,
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
-    
+
     public function test_store()
     {
         // Arrange
@@ -70,7 +72,7 @@ class ProductTest extends TestCase
                 "name" => "product-1",
                 "cost" => 123.45,
                 "description" => "description-1",
-                "photos"=> [
+                "photos" => [
                     ["url" => "photo-1-1"],
                     ["url" => "photo-1-2"],
                     ["url" => "photo-1-3"],
@@ -82,8 +84,8 @@ class ProductTest extends TestCase
             ->assertStatus(Response::HTTP_CREATED)
             ->assertJsonStructure([
                 'data' => [
-                    'id'
-                ]
+                    'id',
+                ],
             ]);
     }
 }

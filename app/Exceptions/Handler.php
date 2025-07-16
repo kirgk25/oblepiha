@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exceptions;
 
 use Illuminate\Validation\ValidationException;
@@ -61,7 +63,7 @@ class Handler extends ExceptionHandler
         } elseif ($throwable instanceof ModelNotFoundException) {
             return response()->json([
                 'errors' => [
-                    __('content.errors.not_found')
+                    __('content.errors.not_found'),
                 ],
                 'code' => Response::HTTP_NOT_FOUND,
             ], Response::HTTP_NOT_FOUND);

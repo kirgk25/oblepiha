@@ -1,4 +1,8 @@
-<?php namespace App\Services;
+<?php
+
+declare(strict_types=1);
+
+namespace App\Services;
 
 class PhoneService extends BaseService
 {

@@ -1,4 +1,8 @@
-<?php namespace App\Services\Components\Order;
+<?php
+
+declare(strict_types=1);
+
+namespace App\Services\Components\Order;
 
 use App\Services\BaseService;
 

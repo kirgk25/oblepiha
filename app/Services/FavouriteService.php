@@ -1,4 +1,6 @@
-<?php namespace App\Services;
+<?php
+
+namespace App\Services;
 
 use App\Models\Favourite;
 use App\Models\Product;
@@ -9,7 +11,7 @@ class FavouriteService extends BaseService
     {
         Favourite::insertOrIgnore([
             'user_id' => $this->getUserId(),
-            'product_id' => $product->id
+            'product_id' => $product->id,
         ]);
 
         $this->deleteFavouriteProductIdsFromCache();
@@ -19,7 +21,7 @@ class FavouriteService extends BaseService
     {
         Favourite::where([
             'user_id' => $this->getUserId(),
-            'product_id' => $product->id
+            'product_id' => $product->id,
         ])->limit(1)->delete();
 
         $this->deleteFavouriteProductIdsFromCache();

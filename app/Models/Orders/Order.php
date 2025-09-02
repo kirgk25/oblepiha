@@ -52,5 +52,4 @@ class Order extends BaseModel
             'status' => OrderStatusEnum::class,
         ];
     }
-
 }

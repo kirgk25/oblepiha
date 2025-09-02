@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\DTO\Common\Casts;
 
-use App\DTO\BaseDTO;
 use Spatie\LaravelData\Casts\Cast;
+use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
@@ -23,7 +23,7 @@ class ArrayCast implements Cast
     ): mixed {
         $result = [];
         foreach ($value as $parameters) {
-            $result[] = is_a($this->class, BaseDTO::class, true)
+            $result[] = is_a($this->class, Data::class, true)
                 ? $this->class::from($parameters)
                 : new $this->class(...$parameters);
         }

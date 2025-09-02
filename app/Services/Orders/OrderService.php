@@ -27,11 +27,10 @@ final class OrderService extends BaseService
             ->index($this->getUser());
     }
 
-    public function store(): void
-    {
+    public function store(
+        array $orderProducts,
+    ): void {
         $userId = $this->getUserId();
-        $orderProducts = request()->orderProducts;
-
         $this
             ->storePublisher
             ->publish($orderProducts, $userId);

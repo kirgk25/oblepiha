@@ -24,7 +24,8 @@ class OrderController extends Controller
 
     public function store(StoreOrderRequest $request): Response
     {
-        $this->orderService->store();
+        $orderProducts = $request->validated('orderProducts');
+        $this->orderService->store($orderProducts);
         return response()->noContent();
     }
 

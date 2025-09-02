@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\Product;
+use App\Models\Products\Product;
+use App\Services\Products\ProductService;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory
@@ -25,7 +26,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'description' => $this->faker->text(Product::DESCRIPTION_MAX_LENGTH),
+            'description' => $this->faker->text(ProductService::DESCRIPTION_MAX_LENGTH),
             'cost' => $this->faker->randomFloat(8, 10, 1000),
         ];
     }

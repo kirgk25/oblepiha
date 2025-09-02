@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Services\Components\MessageBroker\RabbitMQService;
-use App\Services\MessageBrokerService;
+use App\MessageBroker\Brokers\RabbitMQMessageBroker;
+use App\MessageBroker\Brokers\MessageBroker;
 use Illuminate\Support\ServiceProvider;
 
 class MessageBrokerServiceProvider extends ServiceProvider
 {
     public array $singletons = [
-        MessageBrokerService::class => RabbitMQService::class,
+        MessageBroker::class => RabbitMQMessageBroker::class,
     ];
 }

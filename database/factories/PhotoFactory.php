@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\Photo;
-use App\Models\Product;
+use App\Models\Products\Photo;
+use App\Models\Products\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PhotoFactory extends Factory

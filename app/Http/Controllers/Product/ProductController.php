@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Product;
 
-use App\DTO\Product\CreateDTO;
+use App\DTO\Products\CreateDTO;
+use App\DTO\Products\UpdateDTO;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\IndexProductCollection;
-use App\Http\Resources\ShowProductResource;
-use App\Models\Product;
-use App\Services\ProductService;
-use App\Http\Requests\IndexProductRequest;
-use App\Http\Requests\UpdateProductRequest;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Resources\UpdateProductResource;
-use App\Http\Resources\StoreProductResource;
+use App\Http\Resources\Products\Index\IndexProductCollection;
+use App\Http\Resources\Products\ShowProductResource;
+use App\Models\Products\Product;
+use App\Services\Products\ProductService;
+use App\Http\Requests\Products\IndexProductRequest;
+use App\Http\Requests\Products\UpdateProductRequest;
+use App\Http\Requests\Products\StoreProductRequest;
+use App\Http\Resources\Products\UpdateProductResource;
+use App\Http\Resources\Products\StoreProductResource;
 
 class ProductController extends Controller
 {
@@ -25,27 +26,34 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
-    public function index(IndexProductRequest $request)
+    public function index(IndexProductRequest $request): IndexProductCollection
     {
-        return new IndexProductCollection($this->productService->index());
+        $sortDTO = $request->toSortDTO();
+
+        return IndexProductCollection::make($this->productService->index($sortDTO));
     }
 
-    public function store(StoreProductRequest $request)
+    public function store(StoreProductRequest $request): StoreProductResource
     {
-        return new StoreProductResource(
+        return StoreProductResource::make(
             $this->productService->store(
-                new CreateDTO($request->all())
-            )
+                CreateDTO::from($request->validated()),
+            ),
         );
     }
 
-    public function show(Product $product)
+    public function show(Product $product): ShowProductResource
     {
-        return new ShowProductResource($product);
+        return ShowProductResource::make($product);
     }
 
-    public function update(Product $product, UpdateProductRequest $request)
+    public function update(Product $product, UpdateProductRequest $request): UpdateProductResource
     {
-        return new UpdateProductResource($this->productService->update($product));
+        return UpdateProductResource::make(
+            $this->productService->update(
+                $product,
+                UpdateDTO::from($request->validated()),
+            ),
+        );
     }
 }

@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\User;
+use App\Helpers\Cache\CacheHelper;
 
 class BaseService
 {
-    protected CacheService $cacheService;
-    protected MessageBrokerService $messageBrokerService;
+    protected CacheHelper $cacheHelper;
 
     public function __construct()
     {
-        $this->cacheService = app()->make(CacheService::class);
-        $this->messageBrokerService = app()->make(MessageBrokerService::class);
+        $this->cacheHelper = app()->make(CacheHelper::class);
     }
 
     public function getUser(): User

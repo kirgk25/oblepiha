@@ -24,3 +24,4 @@ yarn-error.log
 /.idea
 /.vscode
 .php-cs-fixer.cache
+.env.testing

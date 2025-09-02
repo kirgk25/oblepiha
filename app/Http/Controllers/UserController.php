@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\StoreTokenRequest;
-use App\Services\UserService;
+use App\Http\Requests\Users\LoginRequest;
+use App\Http\Requests\Users\StoreTokenRequest;
+use App\Http\Resources\Users\StoreTokenResource;
+use App\Services\Common\UserService;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -14,28 +16,31 @@ class UserController extends Controller
         public UserService $userService,
     ) {}
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): Response
     {
-        $this->userService->login($request->phone);
+        $this->userService->login((int) $request->phone);
+        return response()->noContent();
     }
 
-    public function token(StoreTokenRequest $request)
+    public function token(StoreTokenRequest $request): StoreTokenResource
     {
-        $token = $this->userService->createToken($request->phone, $request->code, $request->deviceName);
-        if (!$token) {
-            abort(HTTP_CODE_UNAUTHORIZED);
+        $token = $this->userService->createToken((int) $request->phone, $request->code, $request->deviceName);
+        if (null === $token) {
+            abort(Response::HTTP_UNAUTHORIZED);
         }
 
-        return response(compact('token'));
+        return StoreTokenResource::make($token);
     }
 
-    public function destroyToken()
+    public function destroyToken(): Response
     {
         $this->userService->deleteToken();
+        return response()->noContent();
     }
 
-    public function destroyTokens()
+    public function destroyTokens(): Response
     {
         $this->userService->deleteAllTokens();
+        return response()->noContent();
     }
 }

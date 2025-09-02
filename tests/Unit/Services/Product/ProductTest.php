@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Services\Product;
 
-use App\DTO\Product\CreateDTO;
-use App\Services\ProductService;
+use App\DTO\Products\CreateDTO;
+use App\Services\Products\ProductService;
 use Tests\TestCase;
 
 class ProductTest extends TestCase
@@ -26,19 +26,21 @@ class ProductTest extends TestCase
         // Act
         $product = $this
             ->service
-            ->store(new CreateDTO(
-                name: 'product-1',
-                description: 'description-1',
-                cost: 123.45,
-                photos: [
-                    [
-                        'url' => 'http://example.com/first.jpg',
+            ->store(
+                CreateDTO::from([
+                    'name' => 'product-1',
+                    'description' => 'description-1',
+                    'cost' => 123.45,
+                    'photos' => [
+                        [
+                            'url' => 'http://example.com/first.jpg',
+                        ],
+                        [
+                            'url' => 'http://example.com/second.jpg',
+                        ],
                     ],
-                    [
-                        'url' => 'http://example.com/second.jpg',
-                    ],
-                ],
-            ));
+                ]),
+            );
 
         // Assert
         $this->assertDatabaseHas(
@@ -47,13 +49,13 @@ class ProductTest extends TestCase
                 'name' => $product->name,
                 'description' => $product->description,
                 'cost' => $product->cost,
-            ]
+            ],
         );
         $this->assertDatabaseHas(
             'photos',
             [
                 'product_id' => $product->id,
-            ]
+            ],
         );
 
         $this->assertCount(2, $product->photos);

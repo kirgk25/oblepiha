@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Resources\Orders\Index;
+
+use App\Http\Resources\Orders\Index\OrderProductResource;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class OrderResource extends JsonResource
+{
+    public function toArray($request)
+    {
+        return [
+            'number' => $this->number,
+            'createdAt' => $this->created_at,
+            'orderProducts' => OrderProductResource::collection($this->orderProducts),
+        ];
+    }
+}

@@ -1,6 +1,5 @@
 <?php
 
-const PAGINATION_LIMIT = 10;
+declare(strict_types=1);
 
-const HTTP_CODE_UNAUTHORIZED = 401;
-const HTTP_CODE_NOT_FOUND = 404;
+// ...

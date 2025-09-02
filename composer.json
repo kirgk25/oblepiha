@@ -11,7 +11,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.7",
         "php-amqplib/php-amqplib": "^3.4",
-        "spatie/data-transfer-object": "^3.9"
+        "spatie/laravel-data": "^4.17"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^v3.5",

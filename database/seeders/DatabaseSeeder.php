@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Models\Product;
-use App\Models\Photo;
+use App\Models\Products\Product;
+use App\Models\Products\Photo;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 

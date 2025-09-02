@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Services\OrderService;
+use App\Services\Orders\OrderService;
 
 return new class extends Migration {
     /**
@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
-            $table->unsignedTinyInteger('status')->default(OrderService::STATUS_CREATED);
+            $table->unsignedTinyInteger('status')->default(1);
             $table->decimal('amount')->unsigned()->default(0);
         });
 

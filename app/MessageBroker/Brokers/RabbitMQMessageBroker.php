@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\MessageBroker\Brokers;
 
-use App\MessageBroker\Brokers\MessageBroker;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;

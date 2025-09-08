@@ -7,7 +7,6 @@ namespace App\DTO\Products;
 use App\DTO\BaseDTO;
 use App\DTO\Common\Casts\ArrayCast;
 use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\IterableItemCast;
 
 class CreateDTO extends BaseDTO
 {

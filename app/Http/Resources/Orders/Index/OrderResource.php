@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Orders\Index;
 
-use App\Http\Resources\Orders\Index\OrderProductResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderResource extends JsonResource

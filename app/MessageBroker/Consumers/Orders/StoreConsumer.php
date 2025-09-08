@@ -11,7 +11,6 @@ use App\Models\Orders\Order;
 use App\Models\Products\Product;
 use App\Models\Orders\OrderProduct;
 use Illuminate\Database\Eloquent\Collection;
-use App\Services\Orders\OrderService;
 
 class StoreConsumer extends BaseConsumer
 {

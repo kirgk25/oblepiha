@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Feature\Product;
 
 use App\Models\Products\Product;
-use App\Models\User;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class FavouriteTest extends TestCase

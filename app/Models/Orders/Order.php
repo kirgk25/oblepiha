@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Models\Orders;
 
 use App\Enums\Orders\OrderStatusEnum;
-use App\Enums\VMTR\VMTRElement\VMTRElementSupplyDivisionEnum;
-use App\Enums\VMTR\VMTRElement\VMTRElementTypeEnum;
 use App\Models\BaseModel;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;

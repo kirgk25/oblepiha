@@ -18,7 +18,7 @@ abstract class BaseRepository
     /**
      * @return Builder<static>
      */
-    protected function getQuery(): Builder
+    private function getQuery(): Builder
     {
         return $this
             ->getModel()

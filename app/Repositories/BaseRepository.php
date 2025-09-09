@@ -16,7 +16,7 @@ abstract class BaseRepository
     abstract protected function getModel(): Model;
 
     /**
-     * @return Builder<static>
+     * @return Builder<TModel>
      */
     private function getQuery(): Builder
     {

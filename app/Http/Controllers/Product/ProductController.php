@@ -35,11 +35,10 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request): StoreProductResource
     {
-        return StoreProductResource::make(
-            $this->productService->store(
-                CreateDTO::from($request->validated()),
-            ),
-        );
+        return $request->validated()
+                |> CreateDTO::from(...)
+                |> $this->productService->store(...)
+                |> StoreProductResource::make(...);
     }
 
     public function show(Product $product): ShowProductResource

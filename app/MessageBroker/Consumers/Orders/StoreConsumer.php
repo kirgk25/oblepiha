@@ -8,12 +8,20 @@ use App\Enums\Common\MessageBroker\MessageBrokerQueueEnum;
 use App\Enums\Orders\OrderStatusEnum;
 use App\MessageBroker\Consumers\BaseConsumer;
 use App\Models\Orders\Order;
-use App\Models\Products\Product;
 use App\Models\Orders\OrderProduct;
+use App\Repositories\Orders\OrderRepository;
+use App\Repositories\Products\ProductRepository;
 use Illuminate\Database\Eloquent\Collection;
 
 class StoreConsumer extends BaseConsumer
 {
+    public function __construct(
+        private readonly OrderRepository $orderRepository,
+        private readonly ProductRepository $productRepository,
+    ) {
+        parent::__construct();
+    }
+
     public function consume(): ?Order
     {
         $body = $this->messageBroker->consume(MessageBrokerQueueEnum::OrdersStore->value);
@@ -51,14 +59,19 @@ class StoreConsumer extends BaseConsumer
     {
         $tempNumber = md5(rand(0, 100000)) . '-' . rand(0, 100);
 
-        $order = Order::create([
-            'user_id' => $userId,
-            'status' => OrderStatusEnum::Created,
-            'number' => $tempNumber,
-        ]);
+        $order = $this
+            ->orderRepository
+            ->create([
+                'user_id' => $userId,
+                'status' => OrderStatusEnum::Created,
+                'number' => $tempNumber,
+            ]);
 
         $order->number = now()->format('ymd') . '-' . $order->id;
-        $order->save();
+
+        $this
+            ->orderRepository
+            ->save($order);
 
         return $order;
     }
@@ -66,6 +79,10 @@ class StoreConsumer extends BaseConsumer
     private function getProductsById(array $bodyOrderProducts): Collection
     {
         $productIds = array_column($bodyOrderProducts, 'product_id');
-        return Product::findMany($productIds)->keyBy('id');
+        $products = $this
+            ->productRepository
+            ->findMany($productIds);
+
+        return $products->keyBy('id');
     }
 }

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -39,6 +41,14 @@ abstract class BaseRepository
         return $this->getQuery()->insertOrIgnore($attributes);
     }
 
+    /**
+     * @param TModel $model
+     */
+    public function save(Model $model): bool
+    {
+        return $model->save();
+    }
+
     public function update(Model $model, array $attributes = [], array $options = []): bool
     {
         return $model->update($attributes, $options);
@@ -58,6 +68,18 @@ abstract class BaseRepository
     public function firstOrCreate(array $attributes = [], array $values = []): Model
     {
         return $this->getQuery()->firstOrCreate($attributes, $values);
+    }
+
+    /**
+     * @return Collection<int, TModel>
+     */
+    public function findMany(...$args): array
+    {
+        return $this
+            ->getQuery()
+            ->findMany(
+                ...func_get_args(),
+            );
     }
 
     /**

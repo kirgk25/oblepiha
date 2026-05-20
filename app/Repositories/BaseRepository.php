@@ -36,6 +36,11 @@ abstract class BaseRepository
             ->delete();
     }
 
+    public function insert(array $values): bool
+    {
+        return $this->getQuery()->insert($values);
+    }
+
     public function insertOrIgnore(array $attributes): int
     {
         return $this->getQuery()->insertOrIgnore($attributes);

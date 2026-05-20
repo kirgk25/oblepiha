@@ -9,6 +9,7 @@ use App\Enums\Orders\OrderStatusEnum;
 use App\MessageBroker\Consumers\BaseConsumer;
 use App\Models\Orders\Order;
 use App\Models\Orders\OrderProduct;
+use App\Repositories\Orders\OrderProductRepository;
 use App\Repositories\Orders\OrderRepository;
 use App\Repositories\Products\ProductRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -18,6 +19,7 @@ class StoreConsumer extends BaseConsumer
     public function __construct(
         private readonly OrderRepository $orderRepository,
         private readonly ProductRepository $productRepository,
+        private readonly OrderProductRepository $orderProductRepository,
     ) {
         parent::__construct();
     }
@@ -49,8 +51,13 @@ class StoreConsumer extends BaseConsumer
             $order->amount += $newOrderProduct['amount'];
         }
 
-        OrderProduct::insert($newOrderProducts);
-        $order->save();
+        $this
+            ->orderProductRepository
+            ->insert($newOrderProducts);
+
+        $this
+            ->orderRepository
+            ->save($order);
 
         return $order;
     }

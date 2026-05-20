@@ -1,4 +1,4 @@
-FROM php:8.4-fpm
+FROM php:8.5-fpm
 
 ARG USER_ID
 ARG USER_NAME
@@ -18,7 +18,7 @@ RUN apt-get update -y \
     # other
     && apt-get install -y libzip-dev zip libsodium-dev \
     # php extensions
-    && pecl install xdebug-3.4.4 \
+    && pecl install xdebug-3.5.1 \
     && docker-php-ext-enable xdebug \
     && docker-php-ext-install zip bcmath sodium sockets pdo_mysql
 
